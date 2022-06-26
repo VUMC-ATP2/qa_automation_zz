@@ -1,19 +1,27 @@
 public class Calculator {
+    int result;
 
-    public double sum(double x, double y) {
-        return x + y;
+    //Method for addition
+    public int add(int num1, int num2) {
+        result = num1 + num2;
+        return result;
     }
 
-    public double subtract(double x, double y) {
-        return x - y;
+    //Method for subtraction
+    public int subtract(int num1, int num2) {
+        result = num1 - num2;
+        return result;
     }
 
-    public double multiply(double x, double y) {
-        return x * y;
+    //Method for multiplication
+    public int multiply(int num1, int num2) {
+        result = num1 * num2;
+        return result;
     }
 
-    public double divide(double x, double y) {
-        return x / y;
+    //Method for division
+    public float divide(int num1, int num2) {
+        result = num1 / num2;
+        return result;
     }
-
 }
