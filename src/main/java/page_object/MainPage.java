@@ -24,7 +24,6 @@ public class MainPage {
     private By universitiesList = By.name("universities");
     private By javaRadioButton = By.id("javaID");
 
-
     public WebElement getFirstNameField() {
         return driver.findElement(firstNameField);
     }

@@ -1,13 +1,11 @@
 package practice;
 
 import lombok.extern.log4j.Log4j;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -15,6 +13,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import page_object.MainPage;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +23,8 @@ import java.util.logging.Logger;
 public class BrowserTest {
 
     private final String LOCAL_FILE = "file://" + this.getClass().getResource("/elements.html").getPath();
-    ChromeDriver driver;
+    // ChromeDriver driver;
+    WebDriver driver;
     MainPage mainPage;
 
     @BeforeTest
@@ -33,9 +34,14 @@ public class BrowserTest {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void openBrowser() {
+    public void openBrowser() throws MalformedURLException {
         log.info("Initialize ChromeWebDriver");
-        this.driver = new ChromeDriver();
+        // this.driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.setCapability("platformName", "Windows");
+        //driver = new RemoteWebDriver(new URL("http://192.168.8.141:4444/"), options);
+        driver = new RemoteWebDriver(new URL("https://oauth-stefucis-cf7cf:de713aea-6b0f-4b1a-ac17-89207d4209fa@ondemand.eu-central-1.saucelabs.com:443/wd/hub"), options);
+        mainPage = new MainPage(driver);
         // driver.get("https://google.lv");
     }
 
@@ -114,11 +120,14 @@ public class BrowserTest {
     public void actionTest() {
         driver.get(LOCAL_FILE);
         Actions actions = new Actions(driver);
+        mainPage.getAboutMeField().click();
         actions.moveToElement(driver.findElement(By.id("aboutMeID")))
-                .keyDown(Keys.COMMAND).sendKeys("a").keyUp(Keys.COMMAND)
-                .keyDown(Keys.COMMAND).sendKeys("c").keyUp(Keys.COMMAND)
-                .keyDown(Keys.COMMAND).sendKeys("v").sendKeys("1").keyUp(Keys.COMMAND).perform();
+                .keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL)
+                .keyDown(Keys.CONTROL).sendKeys("c").keyUp(Keys.CONTROL)
+                .keyDown(Keys.CONTROL).sendKeys("v").keyUp(Keys.CONTROL)
+                .keyDown(Keys.CONTROL).sendKeys("v").sendKeys("1").keyUp(Keys.CONTROL).perform();
     }
+
 
     @AfterMethod(alwaysRun = true)
     public void closeBrowser() {
