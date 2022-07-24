@@ -8,7 +8,7 @@ public class LoginPage {
 
     private ChromeDriver driver;
 
-    public LoginPage(ChromeDriver driver) {
+    public LoginPage() {
         this.driver = driver;
     }
 

@@ -28,7 +28,7 @@ public class SauceDemoTests {
         log.info("Initialize ChromeWebDriver");
         this.driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage();
         inventoryPage = new InventoryPage(driver);
         webDriverWait = new WebDriverWait(driver, 20);
         cartPage = new CartPage(driver);
